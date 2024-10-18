@@ -89,7 +89,19 @@
 
     <script>
         function removeAccents(str) {
-            return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            // Normalize and remove general accents
+            str = str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            
+            // Replace specific Vietnamese characters
+            str = str.replace(/đ/g, "d").replace(/Đ/g, "D")
+                     .replace(/ă|ắ|ằ|ẳ|ẵ|ặ/g, "a").replace(/Ă/g, "A")
+                     .replace(/â|ấ|ầ|ẩ|ẫ|ậ/g, "a").replace(/Â/g, "A")
+                     .replace(/ê|ế|ề|ể|ễ|ệ/g, "e").replace(/Ê/g, "E")
+                     .replace(/ô|ố|ồ|ổ|ỗ|ộ/g, "o").replace(/Ô/g, "O")
+                     .replace(/ơ|ớ|ờ|ở|ỡ|ợ/g, "o").replace(/Ơ/g, "O")
+                     .replace(/ư|ứ|ừ|ử|ữ|ự/g, "u").replace(/Ư/g, "U");
+
+            return str;
         }
 
         function generateCard() {
@@ -99,7 +111,7 @@
 
             var processedName = fullName.toUpperCase().replace(/\s+/g, '_');
 
-            var imgSrc = 'cards/' + processedName + '.PNG';
+            var imgSrc = 'cards/' + processedName + '.png';
 
             var img = new Image();
             img.src = imgSrc;
