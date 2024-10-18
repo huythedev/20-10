@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vietnam Women's Day Invitation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('background.png') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            backdrop-filter: blur(10px);
+        }
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            width: 350px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        h1 {
+            color: #5d8aa8;
+            font-size: 24px;
+        }
+        p {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #5d8aa8;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #4682b4;
+        }
+        p.error {
+            color: red;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        @media only screen and (max-width: 600px) {
+            .form-container {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h1>Vietnam Women's Day meeting Invitation</h1>
+        <p>Enter your full name to generate your invitation card:</p>
+        
+        <div class="input-group">
+            <input type="text" id="fullName" placeholder="Enter full name" />
+            <button onclick="generateCard()">Get Invitation</button>
+        </div>
+        
+        <div id="cardDisplay"></div>
+    </div>
+
+    <script>
+        function removeAccents(str) {
+            return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        }
+
+        function generateCard() {
+            var fullName = document.getElementById('fullName').value;
+
+            fullName = removeAccents(fullName);
+
+            var processedName = fullName.toUpperCase().replace(/\s+/g, '_');
+
+            var imgSrc = 'cards/' + processedName + '.PNG';
+
+            var img = new Image();
+            img.src = imgSrc;
+
+            img.onload = function() {
+                window.location.href = imgSrc;
+            };
+
+            img.onerror = function() {
+                var cardDisplay = document.getElementById('cardDisplay');
+                cardDisplay.innerHTML = '<p class="error">Sorry, you aren\'t invited to the meeting :(</p>';
+            };
+        }
+    </script>
+
+</body>
+</html>
