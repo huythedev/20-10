@@ -117,12 +117,14 @@
             img.src = imgSrc;
 
             img.onload = function() {
-                window.location.href = imgSrc;
+                // window.location.href = imgSrc;
+                var cardDisplay = document.getElementById('cardDisplay');
+                cardDisplay.innerHTML = '<p class="error">Sorry, the meeting has been already passed :(</p>';
             };
 
             img.onerror = function() {
                 var cardDisplay = document.getElementById('cardDisplay');
-                cardDisplay.innerHTML = '<p class="error">Sorry, you aren\'t invited to the meeting :(</p>';
+                cardDisplay.innerHTML = '<p class="error">Sorry, the meeting has been already passed :(</p>';
             };
         }
     </script>
