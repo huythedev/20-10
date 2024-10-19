@@ -89,10 +89,8 @@
 
     <script>
         function removeAccents(str) {
-            // Normalize and remove general accents
             str = str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-            
-            // Replace specific Vietnamese characters
+    
             str = str.replace(/đ/g, "d").replace(/Đ/g, "D")
                      .replace(/ă|ắ|ằ|ẳ|ẵ|ặ/g, "a").replace(/Ă/g, "A")
                      .replace(/â|ấ|ầ|ẩ|ẫ|ậ/g, "a").replace(/Â/g, "A")
@@ -100,34 +98,41 @@
                      .replace(/ô|ố|ồ|ổ|ỗ|ộ/g, "o").replace(/Ô/g, "O")
                      .replace(/ơ|ớ|ờ|ở|ỡ|ợ/g, "o").replace(/Ơ/g, "O")
                      .replace(/ư|ứ|ừ|ử|ữ|ự/g, "u").replace(/Ư/g, "U");
-
+    
             return str;
         }
-
+    
         function generateCard() {
             var fullName = document.getElementById('fullName').value;
-
+    
             fullName = removeAccents(fullName);
-
             var processedName = fullName.toUpperCase().replace(/\s+/g, '_');
-
             var imgSrc = 'cards/' + processedName + '.png';
-
+    
+            var now = new Date();
+            
+            var cutoffDate = new Date('2024-10-19T09:00:00');
+    
+            if (now > cutoffDate) {
+                var cardDisplay = document.getElementById('cardDisplay');
+                cardDisplay.innerHTML = '<p class="error">Sorry, the meeting has been already passed :(</p>';
+                return; 
+            }
+    
             var img = new Image();
             img.src = imgSrc;
-
+    
             img.onload = function() {
-                // window.location.href = imgSrc;
-                var cardDisplay = document.getElementById('cardDisplay');
-                cardDisplay.innerHTML = '<p class="error">Sorry, the meeting has been already passed :(</p>';
+                window.location.href = imgSrc;
             };
-
+    
             img.onerror = function() {
                 var cardDisplay = document.getElementById('cardDisplay');
-                cardDisplay.innerHTML = '<p class="error">Sorry, the meeting has been already passed :(</p>';
+                cardDisplay.innerHTML = '<p class="error">Sorry, you aren\'t invited to the meeting :(</p>';
             };
         }
     </script>
+    
 
 </body>
 </html>
